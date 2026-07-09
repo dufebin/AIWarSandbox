@@ -1,0 +1,10 @@
+<Project Sdk="Godot.NET.Sdk/4.7.0">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>AIWarSandbox</RootNamespace>
+    <AssemblyName>AIWarSandbox</AssemblyName>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,30 @@
+# Godot 4
+.godot/
+*.import
+
+# Android
+android/
+
+# Build output
+export/
+*.apk
+*.aab
+*.aab.zip
+
+# .NET
+bin/
+obj/
+*.csproj.user
+*.sln.DotSettings.user
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vs/
+.idea/
+*.swp
+
+# Temp
+tmp/

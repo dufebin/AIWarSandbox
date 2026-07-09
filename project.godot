@@ -1,0 +1,90 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[dotnet]
+
+project/assembly_name="AIWarSandbox"
+
+[application]
+
+config/name="AI War Sandbox"
+config/description="3D AI War Sandbox — auto-generated maps, configurable enemy forces, AI-generated attack plans"
+run/main_scene="res://scenes/MainScene.tscn"
+config/features=PackedStringArray("4.7", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+EventBus="*res://autoloads/EventBus.cs"
+GameManager="*res://autoloads/GameManager.cs"
+UnitRegistry="*res://autoloads/UnitRegistry.cs"
+ResourceManager="*res://autoloads/ResourceManager.cs"
+IntelligenceRegistry="*res://autoloads/IntelligenceRegistry.cs"
+EntityGraph="*res://kb/EntityGraph.cs"
+TacticalAIManager="*res://autoloads/TacticalAIManager.cs"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=0
+
+[input]
+
+move_forward={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":87)]
+}
+move_back={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":83)]
+}
+move_left={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":65)]
+}
+move_right={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":68)]
+}
+pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":4194305)]
+}
+select_plan_1={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":49)]
+}
+select_plan_2={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":50)]
+}
+select_plan_3={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"keycode":51)]
+}
+
+[layer_names]
+
+3d_physics/layer_1="Terrain"
+3d_physics/layer_2="Units"
+3d_physics/layer_3="Structures"
+3d_physics/layer_4="Projectiles"
+
+[rendering]
+
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
+anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/screen_space_aa=0
+environment/defaults/default_clear_color=Color(0.18, 0.22, 0.27, 1)
+textures/vram_compression/import_etc2_astc=true
