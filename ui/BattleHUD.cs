@@ -106,9 +106,19 @@ public partial class BattleHUD : CanvasLayer
         planCol.AddChild(_planDesc);
 
         var stopBtn = new Button { Text = "停止" };
-        stopBtn.CustomMinimumSize = new Vector2(140, 48);
+        stopBtn.CustomMinimumSize = new Vector2(100, 48);
         stopBtn.Pressed += OnStop;
         bottomRow.AddChild(stopBtn);
+
+        var reinforceInf = new Button { Text = "增援步兵\n(15人/10补)" };
+        reinforceInf.CustomMinimumSize = new Vector2(120, 48);
+        reinforceInf.Pressed += () => TryReinforce(false);
+        bottomRow.AddChild(reinforceInf);
+
+        var reinforceTank = new Button { Text = "增援坦克\n(30人/25补)" };
+        reinforceTank.CustomMinimumSize = new Vector2(120, 48);
+        reinforceTank.Pressed += () => TryReinforce(true);
+        bottomRow.AddChild(reinforceTank);
 
         // --- Kill flash (centered) ---
         _killFlash = new Label { Text = "" };
@@ -117,6 +127,35 @@ public partial class BattleHUD : CanvasLayer
         _killFlash.Modulate = new Color(1f, 0.3f, 0.3f);
         _killFlash.Visible = false;
         AddChild(_killFlash);
+
+        AddChild(new KillFeed());
+    }
+
+    private void TryReinforce(bool tank)
+    {
+        if (GameManager.Instance?.State != GameState.Battle)
+        {
+            EventBus.Instance?.RaiseLog("[增援] 仅战斗中可用");
+            return;
+        }
+        int man = tank ? 30 : 15;
+        int sup = tank ? 25 : 10;
+        var rm = ResourceManager.Instance;
+        if (rm == null || !rm.TrySpend(man, sup))
+        {
+            EventBus.Instance?.RaiseLog($"[增援] 资源不足 (需要 人力{man}/补给{sup})");
+            return;
+        }
+        var scene = GetTree()?.CurrentScene as AIWarSandbox.Scenes.MainScene;
+        if (scene == null)
+        {
+            EventBus.Instance?.RaiseLog("[增援] 找不到主场景");
+            return;
+        }
+        var u = scene.SpawnReinforcement(tank);
+        EventBus.Instance?.RaiseLog(u != null
+            ? $"[增援] 已派出 {(tank ? "坦克" : "步兵")} (−{man}人/−{sup}补)"
+            : "[增援] 生成失败");
     }
 
     private static Label MakeStat(Control parent, string text)

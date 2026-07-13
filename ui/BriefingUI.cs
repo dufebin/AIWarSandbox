@@ -72,12 +72,12 @@ public partial class BriefingUI : CanvasLayer
         btnRow.AddThemeConstantOverride("separation", 20);
         vbox.AddChild(btnRow);
 
-        var configureBtn = new Button { Text = "Configure Enemy (配置敌情)" };
+        var configureBtn = new Button { Text = "配置双方编成" };
         configureBtn.CustomMinimumSize = new Vector2(280, 56);
         configureBtn.Pressed += OnConfigureEnemy;
         btnRow.AddChild(configureBtn);
 
-        var skipBtn = new Button { Text = "Skip to Battle (default)" };
+        var skipBtn = new Button { Text = "跳过 (默认编成)" };
         skipBtn.CustomMinimumSize = new Vector2(280, 56);
         skipBtn.Pressed += OnSkipToBattle;
         btnRow.AddChild(skipBtn);
@@ -92,10 +92,10 @@ public partial class BriefingUI : CanvasLayer
 
     private void OnSkipToBattle()
     {
-        var cfg = EnemyConfig.CreateDefault();
+        var cfg = ForceConfig.CreateDefault();
         EventBus.Instance.RaiseLog(
-            $"[BriefingUI] Skip-to-battle — default cfg count={cfg.EnemyCount} heavy%={cfg.HeavyRatio}");
-        EventBus.Instance.RaiseConfigSubmitted(cfg);
+            $"[BriefingUI] Skip-to-battle — friendly={cfg.FriendlyInfantry}+{cfg.FriendlyTanks}t enemy={cfg.EnemyCount}");
+        EventBus.Instance.RaiseForceConfigSubmitted(cfg);
         Hide();
     }
 

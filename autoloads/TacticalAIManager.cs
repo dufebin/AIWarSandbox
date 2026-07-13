@@ -13,11 +13,13 @@ public partial class TacticalAIManager : Node
     private PlanGenerator _generator = new();
     private OrderExecutor _executor = new();
     private ConfidenceScorer _scorer = new();
+    private EnemyDirector _enemyDirector = new();
     private List<Plan> _plans = new();
     private TerrainGenerator? _terrain;
 
     public IReadOnlyList<Plan> Plans => _plans;
     public Plan? ActivePlan { get; private set; }
+    public EnemyDirector EnemyDirector => _enemyDirector;
 
     public override void _Ready()
     {
@@ -25,6 +27,7 @@ public partial class TacticalAIManager : Node
         AddChild(_generator);
         AddChild(_executor);
         AddChild(_scorer);
+        AddChild(_enemyDirector);
     }
 
     public void Bind(TerrainGenerator terrain)
@@ -32,10 +35,12 @@ public partial class TacticalAIManager : Node
         _terrain = terrain;
         _generator.Bind(terrain);
         _executor.Bind(terrain);
+        _enemyDirector.Bind(terrain);
     }
 
     public List<Plan> GeneratePlans(EnemyConfig cfg)
     {
+        _enemyDirector.Difficulty = cfg.Difficulty;
         _plans = _generator.Generate(cfg);
         foreach (var plan in _plans)
         {

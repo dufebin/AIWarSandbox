@@ -15,15 +15,20 @@ public partial class MainScene : Node3D
     private BattleHUD _hud = new();
     private PlanSelector _planSelector = new();
     private EndScreen _endScreen = new();
+    private UnitCommandController _commandController = new();
+    private PauseMenu _pauseMenu = new();
+    private ForceConfig _forceCfg = ForceConfig.CreateDefault();
     private EnemyConfig _enemyCfg = EnemyConfig.CreateDefault();
     private SensorModel _sensorModel = new();
     private MapSource? _realMapSource;
     private ImportedTerrainGenerator? _importedTerrain;
+    private MapConfig _mapConfig = MapConfig.CreateFirstMap();
+    private bool _forcesSpawned;
 
     public override void _Ready()
     {
         AddChild(_terrain);
-        var config = MapConfig.CreateFirstMap();
+        var config = _mapConfig;
         _terrain.Generate(config);
 
         if (_realMapSource != null)
@@ -46,15 +51,22 @@ public partial class MainScene : Node3D
         AddChild(_planSelector);
         AddChild(_endScreen);
         AddChild(_sensorModel);
+        AddChild(_commandController);
+        AddChild(_pauseMenu);
 
+        var minimap = new Minimap();
+        minimap.Bind(_mapConfig.Size, _camera);
+        AddChild(minimap);
+        AddChild(new FogOfWarViz());
+
+        EventBus.Instance.ForceConfigSubmitted += OnForceConfigSubmitted;
         EventBus.Instance.ConfigSubmitted += OnConfigSubmitted;
         GameManager.Instance.TransitionTo(GameState.Briefing);
         ShowBriefing();
 
-        GD.Print($"[MainScene] Ready — terrain size={config.Size} seed={config.Seed} realMap={_realMapSource != null}");
+        GD.Print($"[MainScene] Ready — terrain size={config.Size} seed={config.Seed}");
     }
 
-    /// <summary>Enable real-map (Gaode satellite + Terrarium elevation) generation. Call before adding to the tree.</summary>
     public void ConfigureRealMap(MapSource source) => _realMapSource = source;
 
     private async System.Threading.Tasks.Task BuildImportedTerrainAsync(MapSource source, MapConfig config)
@@ -92,21 +104,37 @@ public partial class MainScene : Node3D
         _camera.Rotation = new Vector3(Mathf.DegToRad(-45), 0, 0);
         AddChild(_camera);
         _camera.MakeCurrent();
+        _commandController.BindCamera(_camera);
     }
 
     private void ShowBriefing()
     {
-        var briefing = new BriefingUI();
-        AddChild(briefing);
+        AddChild(new BriefingUI());
     }
 
-    private void OnConfigSubmitted(EnemyConfig cfg)
+    private void OnForceConfigSubmitted(ForceConfig cfg)
     {
-        _enemyCfg = cfg;
+        if (_forcesSpawned) return;
+        _forcesSpawned = true;
+        _forceCfg = cfg;
+        _enemyCfg = cfg.ToEnemyConfig();
         SpawnForces(cfg);
-        var plans = TacticalAIManager.Instance.GeneratePlans(cfg);
+        var plans = TacticalAIManager.Instance.GeneratePlans(_enemyCfg);
         _planSelector.ShowPlans(plans);
         GameManager.Instance.TransitionTo(GameState.Briefing);
+    }
+
+    /// <summary>Legacy path: wrap EnemyConfig into ForceConfig defaults.</summary>
+    private void OnConfigSubmitted(EnemyConfig cfg)
+    {
+        if (_forcesSpawned) return;
+        var fc = ForceConfig.CreateDefault();
+        fc.EnemyCount = cfg.EnemyCount;
+        fc.HeavyRatio = cfg.HeavyRatio;
+        fc.Difficulty = cfg.Difficulty;
+        fc.EnemyPrimaryWeapon = cfg.EnemyPrimaryWeapon;
+        fc.EnemyHeavyWeapon = cfg.EnemyHeavyWeapon;
+        OnForceConfigSubmitted(fc);
     }
 
     private void PlaceSpawnPoints(MapConfig config)
@@ -155,53 +183,79 @@ public partial class MainScene : Node3D
     private void SpawnBases(MapConfig config)
     {
         float half = config.Size * 0.5f;
-        var friendlyBase = UnitFactory.CreateStructure(StructureKind.Base, true,
-            _terrain.SnapToGround(new Vector3(-half + 6f, 0, -half + 6f)));
-        AddChild(friendlyBase);
-
-        var enemyBase = UnitFactory.CreateStructure(StructureKind.Base, false,
-            _terrain.SnapToGround(new Vector3(half - 6f, 0, half - 6f)));
-        AddChild(enemyBase);
+        AddChild(UnitFactory.CreateStructure(StructureKind.Base, true,
+            _terrain.SnapToGround(new Vector3(-half + 6f, 0, -half + 6f))));
+        AddChild(UnitFactory.CreateStructure(StructureKind.Base, false,
+            _terrain.SnapToGround(new Vector3(half - 6f, 0, half - 6f))));
     }
 
-    private void SpawnForces(EnemyConfig cfg)
+    private void SpawnForces(ForceConfig cfg)
     {
-        float half = 64f * 0.5f;
+        float half = _mapConfig.Size * 0.5f;
         var friendlyUnits = new List<Unit>();
 
-        for (int i = 0; i < 6; i++)
+        Vector3 fOrigin = new(-half + 10f, 0, -half + 12f);
+        Vector3 fRally = _terrain.SnapToGround(new Vector3(-half * 0.35f, 0, -half * 0.35f));
+
+        for (int i = 0; i < cfg.FriendlyInfantry; i++)
         {
-            var u = UnitFactory.CreateInfantry(WeaponType.Rifle, true,
-                _terrain.SnapToGround(new Vector3(-half + 10f + i * 1.5f, 0, -half + 12f)));
+            var pos = _terrain.SnapToGround(fOrigin + new Vector3(i * 1.6f, 0, (i % 3) * 1.2f));
+            var u = UnitFactory.CreateInfantry(cfg.FriendlyInfantryWeapon, true, pos);
             AddChild(u);
             friendlyUnits.Add(u);
+            if (u is Combatant c) c.MoveTo(fRally + new Vector3(i * 1.5f, 0, 0));
         }
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < cfg.FriendlyTanks; i++)
         {
-            var v = UnitFactory.CreateVehicle(WeaponType.Cannon, true,
-                _terrain.SnapToGround(new Vector3(-half + 14f + i * 3f, 0, -half + 10f)));
+            var pos = _terrain.SnapToGround(fOrigin + new Vector3(4f + i * 3.5f, 0, -2f));
+            var v = UnitFactory.CreateVehicle(cfg.FriendlyTankWeapon, true, pos);
             AddChild(v);
             friendlyUnits.Add(v);
+            if (v is Combatant c) c.MoveTo(fRally + new Vector3(i * 3f, 0, -2f));
         }
+
+        Vector3 eOrigin = new(half - 10f, 0, half - 12f);
+        Vector3 eRally = _terrain.SnapToGround(new Vector3(half * 0.35f, 0, half * 0.35f));
 
         int heavy = cfg.EnemyCount * cfg.HeavyRatio / 100;
         int light = cfg.EnemyCount - heavy;
         for (int i = 0; i < light; i++)
         {
-            var e = UnitFactory.CreateInfantry(cfg.EnemyPrimaryWeapon, false,
-                _terrain.SnapToGround(new Vector3(half - 10f - i * 1.5f, 0, half - 12f)));
+            var pos = _terrain.SnapToGround(eOrigin + new Vector3(-i * 1.6f, 0, -(i % 3) * 1.2f));
+            var e = UnitFactory.CreateInfantry(cfg.EnemyPrimaryWeapon, false, pos);
             AddChild(e);
+            if (e is Combatant c) c.MoveTo(eRally + new Vector3(-i * 1.5f, 0, 0));
         }
         for (int i = 0; i < heavy; i++)
         {
-            var e = UnitFactory.CreateInfantry(cfg.EnemyHeavyWeapon, false,
-                _terrain.SnapToGround(new Vector3(half - 14f - i * 2f, 0, half - 10f)));
+            var pos = _terrain.SnapToGround(eOrigin + new Vector3(-4f - i * 2.5f, 0, 2f));
+            var e = UnitFactory.CreateInfantry(cfg.EnemyHeavyWeapon, false, pos);
             AddChild(e);
+            if (e is Combatant c) c.MoveTo(eRally + new Vector3(-i * 2f, 0, 2f));
         }
 
         GD.Print($"[MainScene] Forces spawned — friendly={friendlyUnits.Count} enemy={cfg.EnemyCount}");
-
         RegisterSensors(friendlyUnits);
+    }
+
+    public Unit? SpawnReinforcement(bool tank)
+    {
+        float half = _mapConfig.Size * 0.5f;
+        var pos = _terrain.SnapToGround(new Vector3(-half + 10f + GD.Randf() * 4f, 0, -half + 12f));
+        Unit u = tank
+            ? UnitFactory.CreateVehicle(_forceCfg.FriendlyTankWeapon, true, pos)
+            : UnitFactory.CreateInfantry(_forceCfg.FriendlyInfantryWeapon, true, pos);
+        AddChild(u);
+        if (u is Combatant c)
+        {
+            c.MoveTo(_terrain.SnapToGround(new Vector3(-half * 0.3f, 0, -half * 0.3f)));
+            _sensorModel.ObserverSensors[(int)u.GetInstanceId()] = new[]
+            {
+                SensorModel.DefaultVisual(),
+                SensorModel.DefaultRadar()
+            };
+        }
+        return u;
     }
 
     private void RegisterSensors(List<Unit> friendlies)
@@ -209,8 +263,7 @@ public partial class MainScene : Node3D
         foreach (var u in friendlies)
         {
             if (u is not Combatant) continue;
-            int id = (int)u.GetInstanceId();
-            _sensorModel.ObserverSensors[id] = new[]
+            _sensorModel.ObserverSensors[(int)u.GetInstanceId()] = new[]
             {
                 SensorModel.DefaultVisual(),
                 SensorModel.DefaultRadar()
@@ -223,7 +276,7 @@ public partial class MainScene : Node3D
         if (ev is InputEventKey k && k.Pressed && k.Keycode == Key.Escape)
         {
             if (GameManager.Instance.State == GameState.Battle)
-                TacticalAIManager.Instance.Halt();
+                _pauseMenu.Toggle();
         }
     }
 }

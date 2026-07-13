@@ -21,6 +21,8 @@ public partial class EndScreen : CanvasLayer
     private float _battleDuration;
     private int _friendlyStartCount;
     private int _enemyStartCount;
+    private int _enemyKilled;
+    private int _friendlyLost;
 
     public override void _Ready()
     {
@@ -30,6 +32,7 @@ public partial class EndScreen : CanvasLayer
 
         EventBus.Instance.BattleStarted += OnBattleStarted;
         EventBus.Instance.BattleEnded += OnBattleEnded;
+        EventBus.Instance.UnitDied += OnUnitDied;
     }
 
     private void BuildLayout()
@@ -87,9 +90,18 @@ public partial class EndScreen : CanvasLayer
         btnRow.AddChild(_quit);
     }
 
+    private void OnUnitDied(Unit u)
+    {
+        if (u == null) return;
+        if (u.IsFriendly) _friendlyLost++;
+        else _enemyKilled++;
+    }
+
     private void OnBattleStarted()
     {
         _battleStartUnix = Time.GetTicksMsec() / 1000f;
+        _enemyKilled = 0;
+        _friendlyLost = 0;
 
         var registry = UnitRegistry.Instance;
         _friendlyStartCount = 0;
@@ -108,28 +120,17 @@ public partial class EndScreen : CanvasLayer
     {
         _battleDuration = (Time.GetTicksMsec() / 1000f) - _battleStartUnix;
 
-        int friendlyAlive = 0;
-        int enemyDead = 0;
-        var registry = UnitRegistry.Instance;
-        if (registry != null)
-        {
-            foreach (var u in registry.All)
-            {
-                if (u.IsFriendly)
-                {
-                    if (u.State != UnitState.Dead) friendlyAlive++;
-                }
-                else
-                {
-                    if (u.State == UnitState.Dead) enemyDead++;
-                }
-            }
-        }
+        // Dead units are freed immediately, so derive counts from the death tally
+        // accumulated over the battle rather than scanning the (now shrunken) registry.
+        int friendlyAlive = Mathf.Max(0, _friendlyStartCount - _friendlyLost);
+        int enemyDead = _enemyKilled;
 
         _title.Text = victory ? "胜利!" : "失败...";
         _title.Modulate = victory
             ? new Color(0.3f, 1f, 0.3f)
             : new Color(1f, 0.3f, 0.3f);
+
+        Units.SfxBus.Play(this, victory ? Units.SfxBus.Kind.Victory : Units.SfxBus.Kind.Defeat);
 
         _stats.Text =
             $"友军幸存: {friendlyAlive} / {_friendlyStartCount}\n" +
@@ -155,6 +156,7 @@ public partial class EndScreen : CanvasLayer
         {
             EventBus.Instance.BattleStarted -= OnBattleStarted;
             EventBus.Instance.BattleEnded -= OnBattleEnded;
+            EventBus.Instance.UnitDied -= OnUnitDied;
         }
     }
 }

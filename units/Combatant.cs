@@ -6,10 +6,8 @@ public partial class Combatant : Unit
 {
     public Weapon Weapon { get; protected set; } = new();
 
-    /// <summary>Effective attack range, derived from the equipped <see cref="Weapon"/>.</summary>
     public float AttackRange => Weapon?.Range ?? 0f;
 
-    /// <summary>Primary combat target (nullable). Alias of <see cref="CurrentTarget"/>.</summary>
     public Combatant? Target
     {
         get => CurrentTarget as Combatant;
@@ -19,21 +17,34 @@ public partial class Combatant : Unit
     public Unit? CurrentTarget { get; protected set; }
     public float MoveSpeed { get; protected set; } = 8f;
     public float Armor { get; protected set; } = 0f;
+    public CombatStance Stance { get; set; } = CombatStance.Aggressive;
 
     protected float _reloadLeft;
     private Vector3 _moveDest;
     private bool _hasMoveDest;
+
+    private const float TurnSpeed = 9f;
+    private const float Gravity = 26f;
+    private const float DetectionRange = 55f;
 
     public override void _Ready()
     {
         base._Ready();
         _reloadLeft = 1f / Mathf.Max(0.1f, Weapon.RateOfFire);
         CollisionLayer = 2u;
-        CollisionMask = 1u | 2u;
+        CollisionMask = 1u | 4u;
+
+        AddChild(new CollisionShape3D
+        {
+            Name = "BodyShape",
+            Shape = new CapsuleShape3D { Radius = 0.4f, Height = 1.6f },
+            Position = new Vector3(0f, 0.8f, 0f),
+        });
 
         var mesh = new MeshInstance3D
         {
             Mesh = new BoxMesh { Size = new Vector3(0.8f, 1.6f, 0.8f) },
+            Position = new Vector3(0f, 0.8f, 0f),
             Name = "Body"
         };
         mesh.MaterialOverride = new StandardMaterial3D
@@ -47,33 +58,49 @@ public partial class Combatant : Unit
     {
         var dt = (float)delta;
 
+        Vector3 horiz = Vector3.Zero;
         if (_hasMoveDest)
         {
             var to = _moveDest - GlobalPosition;
             to.Y = 0;
-            if (to.Length() < 0.3f)
+            if (to.Length() < 0.4f)
             {
                 _hasMoveDest = false;
                 if (State != UnitState.Attacking) State = UnitState.Idle;
             }
             else
             {
-                var dir = to.Normalized();
-                Velocity = new Vector3(dir.X * MoveSpeed, Velocity.Y, dir.Z * MoveSpeed);
+                horiz = to.Normalized() * MoveSpeed;
                 State = UnitState.Moving;
-                MoveAndSlide();
+                FaceToward(_moveDest, dt);
             }
         }
-        else
+
+        float vy = Velocity.Y;
+        if (IsOnFloor()) vy = Mathf.Max(vy, -1f);
+        else vy -= Gravity * dt;
+        Velocity = new Vector3(horiz.X, vy, horiz.Z);
+        MoveAndSlide();
+
+        // StandGround: no auto-acquire; only fire if already has an explicit target in range.
+        if (Stance == CombatStance.StandGround)
         {
-            Velocity = new Vector3(0, Velocity.Y, 0);
+            if (CurrentTarget != null && CurrentTarget.State != UnitState.Dead)
+            {
+                var dist = GlobalPosition.DistanceTo(CurrentTarget.GlobalPosition);
+                if (dist <= AttackRange && Weapon.CanFire())
+                {
+                    State = UnitState.Attacking;
+                    FaceToward(CurrentTarget.GlobalPosition, dt);
+                    Weapon.Fire(this, CurrentTarget);
+                    _reloadLeft = 1f / Mathf.Max(0.1f, Weapon.RateOfFire);
+                }
+            }
+            return;
         }
 
-        // Acquire / maintain target.
         if (CurrentTarget == null || CurrentTarget.State == UnitState.Dead)
-        {
             AcquireTarget();
-        }
 
         if (CurrentTarget != null && CurrentTarget.State != UnitState.Dead)
         {
@@ -81,15 +108,16 @@ public partial class Combatant : Unit
             if (dist <= AttackRange)
             {
                 if (State != UnitState.Moving) State = UnitState.Attacking;
-                // Use the weapon's own cooldown via CanFire/Fire.
+                FaceToward(CurrentTarget.GlobalPosition, dt);
                 if (Weapon.CanFire())
                 {
                     Weapon.Fire(this, CurrentTarget);
                     _reloadLeft = 1f / Mathf.Max(0.1f, Weapon.RateOfFire);
                 }
             }
-            else if (!_hasMoveDest)
+            else if (!_hasMoveDest && Stance == CombatStance.Aggressive)
             {
+                // HoldGround: do not chase outside weapon range.
                 MoveTo(CurrentTarget.GlobalPosition);
             }
         }
@@ -100,15 +128,10 @@ public partial class Combatant : Unit
         }
     }
 
-    /// <summary>
-    /// Friendly combatants target through the fog of war: query
-    /// <see cref="IntelligenceRegistry.NearestKnownEnemy"/> for a high-confidence
-    /// track, resolve it to a live unit via <see cref="IntelligenceRegistry.Track.LinkedUnitId"/>,
-    /// and fall back to ground truth within attack range. Enemy combatants use
-    /// ground truth directly (asymmetric AI).
-    /// </summary>
     public void AcquireTarget()
     {
+        if (Stance == CombatStance.StandGround) return;
+
         var registry = AIWarSandbox.Autoloads.UnitRegistry.Instance;
         if (registry == null) return;
 
@@ -136,7 +159,9 @@ public partial class Combatant : Unit
         var candidates = IsFriendly ? registry.Enemy : registry.Friendly;
         Unit? nearest = null;
         float bestSqr = float.MaxValue;
-        float rangeSqr = AttackRange * AttackRange;
+        // HoldGround only looks within weapon range; Aggressive uses detection range.
+        float acquireRange = Stance == CombatStance.HoldGround ? AttackRange : DetectionRange;
+        float rangeSqr = acquireRange * acquireRange;
         foreach (var u in candidates)
         {
             if (u == null || u.State == UnitState.Dead) continue;
@@ -156,10 +181,17 @@ public partial class Combatant : Unit
         _hasMoveDest = true;
     }
 
-    public void Attack(Unit target)
+    private void FaceToward(Vector3 worldTarget, float dt)
     {
-        CurrentTarget = target;
+        var to = worldTarget - GlobalPosition;
+        to.Y = 0f;
+        if (to.LengthSquared() < 0.0004f) return;
+        float targetYaw = Mathf.Atan2(to.X, to.Z);
+        float yaw = Mathf.LerpAngle(Rotation.Y, targetYaw, Mathf.Min(1f, dt * TurnSpeed));
+        Rotation = new Vector3(Rotation.X, yaw, Rotation.Z);
     }
+
+    public void Attack(Unit target) => CurrentTarget = target;
 
     public void Hold()
     {
@@ -175,9 +207,5 @@ public partial class Combatant : Unit
         base.TakeDamage(mitigated);
     }
 
-    protected virtual void Fire(Unit target)
-    {
-        // Legacy direct-fire path; delegates to the weapon system.
-        Weapon.Fire(this, target);
-    }
+    protected virtual void Fire(Unit target) => Weapon.Fire(this, target);
 }

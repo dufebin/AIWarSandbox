@@ -20,6 +20,7 @@ public partial class EventBus : Node
     public event System.Action<int>? PlanSelected;
     public event System.Action<Plan>? PlanExecuting;
     public event System.Action<EnemyConfig>? ConfigSubmitted;
+    public event System.Action<ForceConfig>? ForceConfigSubmitted;
     public event System.Action<AIWarSandbox.Units.Unit>? UnitSpawned;
     public event System.Action<AIWarSandbox.Units.Unit>? UnitDied;
     public event System.Action<AIWarSandbox.Units.Unit, int>? DamageDealt;
@@ -39,6 +40,7 @@ public partial class EventBus : Node
     public void RaisePlanSelected(int planIndex) => PlanSelected?.Invoke(planIndex);
     public void RaisePlanExecuting(Plan plan) => PlanExecuting?.Invoke(plan);
     public void RaiseConfigSubmitted(EnemyConfig cfg) => ConfigSubmitted?.Invoke(cfg);
+    public void RaiseForceConfigSubmitted(ForceConfig cfg) => ForceConfigSubmitted?.Invoke(cfg);
     public void RaiseUnitSpawned(AIWarSandbox.Units.Unit u) => UnitSpawned?.Invoke(u);
     public void RaiseUnitDied(AIWarSandbox.Units.Unit u) => UnitDied?.Invoke(u);
     public void RaiseDamageDealt(AIWarSandbox.Units.Unit target, int damage) => DamageDealt?.Invoke(target, damage);

@@ -4,20 +4,8 @@ namespace AIWarSandbox.Units;
 
 public partial class Infantry : Combatant
 {
-    /// <summary>GLB model paths for friendly/enemy infantry. CC0 from Poly Pizza (Quaternius).</summary>
-    private static readonly string[] FriendlyModels =
-    {
-        "res://models/poly_pizza/infantry_swat.glb",
-        "res://models/poly_pizza/infantry_adventurer.glb",
-        "res://models/poly_pizza/infantry_animated.glb",
-    };
-
-    private static readonly string[] EnemyModels =
-    {
-        "res://models/poly_pizza/infantry_zombie.glb",
-        "res://models/poly_pizza/infantry_robot_enemy.glb",
-        "res://models/poly_pizza/infantry_character_base.glb",
-    };
+    /// <summary>Enemies use the sci-fi gun pack; friendlies use realistic toon-shooter guns.</summary>
+    private bool UsesSciFiGear => !IsFriendly;
 
     public Infantry()
     {
@@ -30,17 +18,15 @@ public partial class Infantry : Combatant
     {
         base._Ready();
 
-        // Try to load a 3D model from GLB; fall back to capsule mesh on failure.
-        var models = IsFriendly ? FriendlyModels : EnemyModels;
-        var modelPath = models[GD.RandRange(0, models.Length - 1)];
-
-        if (ResourceLoader.Exists(modelPath) &&
-            ResourceLoader.Load<PackedScene>(modelPath).Instantiate() is Node3D instance)
+        // Quaternius character (Toon Shooter / Ultimate Modular packs); fall back to a capsule.
+        if (ModelLibrary.RandomInfantry(IsFriendly) is { } instance)
         {
             instance.Name = "Model";
-            // Scale to ~1.6m height (infantry capsule was radius 0.4, height 1.6)
-            instance.Scale = new Vector3(0.5f, 0.5f, 0.5f);
+            instance.Scale = new Vector3(
+                ModelLibrary.InfantryScale, ModelLibrary.InfantryScale, ModelLibrary.InfantryScale);
             AddChild(instance);
+            ModelLibrary.PlayIdle(instance);
+            AttachWeaponModel(instance);
 
             // Hide the placeholder Body mesh from base._Ready()
             if (GetNodeOrNull<MeshInstance3D>("Body") is { } body)
@@ -58,6 +44,19 @@ public partial class Infantry : Combatant
                 };
             }
         }
+    }
+
+    /// <summary>Parents a held-weapon model roughly at hand height (best-effort; no bone rig needed).</summary>
+    private void AttachWeaponModel(Node3D characterModel)
+    {
+        if (Weapon == null) return;
+        if (ModelLibrary.Weapon(Weapon.Type, UsesSciFiGear) is not { } gun) return;
+        gun.Name = "HeldWeapon";
+        gun.Scale = new Vector3(
+            ModelLibrary.WeaponScale, ModelLibrary.WeaponScale, ModelLibrary.WeaponScale);
+        // Approximate right-hand position, forward-facing.
+        gun.Position = new Vector3(0.35f, 1.0f, 0.35f);
+        characterModel.AddChild(gun);
     }
 
     public void Equip(WeaponType type)

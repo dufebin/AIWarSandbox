@@ -5,15 +5,19 @@ using AIWarSandbox.Units;
 namespace AIWarSandbox.Ui;
 
 /// <summary>
-/// CanvasLayer UI for editing an <see cref="EnemyConfig"/>. Sliders + option
-/// buttons feed a fresh <see cref="EnemyConfig"/> instance submitted through
-/// <see cref="EventBus.RaiseConfigSubmitted"/>. Kept separate from the POD
-/// <see cref="EnemyConfig"/> data class.
+/// Briefing force-composition UI for both friendly and enemy sides.
+/// Submits a <see cref="ForceConfig"/> via <see cref="EventBus.RaiseForceConfigSubmitted"/>.
 /// </summary>
 public partial class EnemyConfigUI : CanvasLayer
 {
+    private HSlider _friendlyInfSlider = null!;
+    private HSlider _friendlyTankSlider = null!;
+    private OptionButton _friendlyInfWeapon = null!;
+    private OptionButton _friendlyTankWeapon = null!;
+
     private HSlider _countSlider = null!;
     private HSlider _heavySlider = null!;
+    private HSlider _diffSlider = null!;
     private OptionButton _primaryWeapon = null!;
     private OptionButton _heavyWeapon = null!;
     private Label _summary = null!;
@@ -23,8 +27,13 @@ public partial class EnemyConfigUI : CanvasLayer
         Layer = 10;
         BuildLayout();
 
+        _friendlyInfSlider.ValueChanged += _ => UpdateSummary();
+        _friendlyTankSlider.ValueChanged += _ => UpdateSummary();
+        _friendlyInfWeapon.ItemSelected += _ => UpdateSummary();
+        _friendlyTankWeapon.ItemSelected += _ => UpdateSummary();
         _countSlider.ValueChanged += _ => UpdateSummary();
         _heavySlider.ValueChanged += _ => UpdateSummary();
+        _diffSlider.ValueChanged += _ => UpdateSummary();
         _primaryWeapon.ItemSelected += _ => UpdateSummary();
         _heavyWeapon.ItemSelected += _ => UpdateSummary();
 
@@ -43,7 +52,7 @@ public partial class EnemyConfigUI : CanvasLayer
         AddChild(center);
 
         var panel = new Panel { Name = "Card" };
-        panel.CustomMinimumSize = new Vector2(560, 0);
+        panel.CustomMinimumSize = new Vector2(600, 0);
         center.AddChild(panel);
 
         var margin = new MarginContainer { Name = "Margin" };
@@ -54,22 +63,35 @@ public partial class EnemyConfigUI : CanvasLayer
         panel.AddChild(margin);
 
         var vbox = new VBoxContainer { Name = "Content" };
-        vbox.AddThemeConstantOverride("separation", 14);
+        vbox.AddThemeConstantOverride("separation", 12);
         margin.AddChild(vbox);
 
-        var title = new Label { Text = "敌方配置" };
+        var title = new Label { Text = "双方编成配置" };
         title.AddThemeFontSizeOverride("font_size", 28);
         title.HorizontalAlignment = HorizontalAlignment.Center;
         vbox.AddChild(title);
 
+        var friendTitle = new Label { Text = "— 友军 —" };
+        friendTitle.HorizontalAlignment = HorizontalAlignment.Center;
+        vbox.AddChild(friendTitle);
+
+        _friendlyInfSlider = MakeSlider(vbox, "步兵数量", 2, 16, 6);
+        _friendlyTankSlider = MakeSlider(vbox, "坦克数量", 0, 6, 2);
+        _friendlyInfWeapon = MakeOption(vbox, "步兵武器", (int)WeaponType.Rifle);
+        _friendlyTankWeapon = MakeOption(vbox, "坦克主炮", (int)WeaponType.Cannon);
+
+        var enemyTitle = new Label { Text = "— 敌军 —" };
+        enemyTitle.HorizontalAlignment = HorizontalAlignment.Center;
+        vbox.AddChild(enemyTitle);
+
         _countSlider = MakeSlider(vbox, "敌军人数", 4, 30, 12);
         _heavySlider = MakeSlider(vbox, "重装比例 %", 0, 100, 30);
-
-        _primaryWeapon = MakeOption(vbox, "主武器 (轻装)", 0);
+        _diffSlider = MakeSlider(vbox, "难度 (0被动/1标准/2激进)", 0, 2, 1);
+        _primaryWeapon = MakeOption(vbox, "主武器 (轻装)", (int)WeaponType.Rifle);
         _heavyWeapon = MakeOption(vbox, "重装武器", (int)WeaponType.Rocket);
 
         _summary = new Label { Name = "Summary", Text = "" };
-        _summary.AddThemeFontSizeOverride("font_size", 16);
+        _summary.AddThemeFontSizeOverride("font_size", 15);
         vbox.AddChild(_summary);
 
         var confirm = new Button { Text = "确认" };
@@ -105,6 +127,7 @@ public partial class EnemyConfigUI : CanvasLayer
         opt.AddItem("MG (机枪)", (int)WeaponType.Mg);
         opt.AddItem("Cannon (炮)", (int)WeaponType.Cannon);
         opt.AddItem("Rocket (火箭)", (int)WeaponType.Rocket);
+        opt.AddItem("Sniper (狙击)", (int)WeaponType.Sniper);
         int selIdx = opt.GetItemIndex(selected);
         opt.Select(selIdx >= 0 ? selIdx : 0);
         row.AddChild(opt);
@@ -116,24 +139,32 @@ public partial class EnemyConfigUI : CanvasLayer
         var cfg = BuildConfig();
         int heavy = cfg.EnemyCount * cfg.HeavyRatio / 100;
         int light = cfg.EnemyCount - heavy;
-        _summary.Text = $"预计敌军: {cfg.EnemyCount} 人\n  轻装 ({cfg.EnemyPrimaryWeapon}): {light}\n  重装 ({cfg.EnemyHeavyWeapon}): {heavy}";
+        string diff = cfg.Difficulty switch { 0 => "被动", 2 => "激进", _ => "标准" };
+        _summary.Text =
+            $"友军: {cfg.FriendlyInfantry} 步兵 + {cfg.FriendlyTanks} 坦克\n" +
+            $"敌军: {cfg.EnemyCount} 人 (轻{light}/重{heavy}) 难度={diff}";
     }
 
-    private EnemyConfig BuildConfig() => new()
+    private ForceConfig BuildConfig() => new()
     {
+        FriendlyInfantry = (int)_friendlyInfSlider.Value,
+        FriendlyTanks = (int)_friendlyTankSlider.Value,
+        FriendlyInfantryWeapon = (WeaponType)_friendlyInfWeapon.GetSelectedId(),
+        FriendlyTankWeapon = (WeaponType)_friendlyTankWeapon.GetSelectedId(),
         EnemyCount = (int)_countSlider.Value,
         HeavyRatio = (int)_heavySlider.Value,
-        EnemyPrimaryWeapon = (WeaponType)(int)_primaryWeapon.GetSelectedMetadata(),
-        EnemyHeavyWeapon = (WeaponType)(int)_heavyWeapon.GetSelectedMetadata(),
+        Difficulty = (int)_diffSlider.Value,
+        EnemyPrimaryWeapon = (WeaponType)_primaryWeapon.GetSelectedId(),
+        EnemyHeavyWeapon = (WeaponType)_heavyWeapon.GetSelectedId(),
     };
 
     private void OnConfirm()
     {
         var cfg = BuildConfig();
         EventBus.Instance.RaiseLog(
-            $"[EnemyConfigUI] Submitted — count={cfg.EnemyCount} heavy%={cfg.HeavyRatio} " +
-            $"primary={cfg.EnemyPrimaryWeapon} heavy={cfg.EnemyHeavyWeapon}");
-        EventBus.Instance.RaiseConfigSubmitted(cfg);
+            $"[ForceConfig] friendly={cfg.FriendlyInfantry}+{cfg.FriendlyTanks}t " +
+            $"enemy={cfg.EnemyCount} diff={cfg.Difficulty}");
+        EventBus.Instance.RaiseForceConfigSubmitted(cfg);
         Hide();
     }
 }

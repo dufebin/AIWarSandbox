@@ -11,6 +11,8 @@ public partial class Weapon : Resource
     [Export] public float RateOfFire { get; set; } = 2f;
     [Export] public float ProjectileSpeed { get; set; } = 60f;
     [Export] public float SplashRadius { get; set; } = 0f;
+    /// <summary>Damage multiplier applied against high-armor targets (Armor &gt;= 0.3).</summary>
+    [Export] public float AntiArmorMult { get; set; } = 1f;
 
     /// <summary>Cooldown in seconds between shots. Derived from RateOfFire when zero.</summary>
     public float CooldownSec
@@ -22,6 +24,9 @@ public partial class Weapon : Resource
 
     /// <summary>Engine time (seconds) of the last successful shot.</summary>
     public double LastFireTime { get; private set; } = -1e9;
+
+    /// <summary>Shared RNG for hit rolls — avoids allocating one per shot.</summary>
+    private static readonly RandomNumberGenerator Rng = new();
 
     /// <summary>True when enough time has elapsed since the last shot to fire again.</summary>
     public bool CanFire() => Time.GetTicksMsec() / 1000.0 - LastFireTime >= CooldownSec;
@@ -46,32 +51,33 @@ public partial class Weapon : Resource
 
         // Hit chance falls off with distance: full at point-blank, ~0.6 at max range.
         float hitChance = 1f - Mathf.Clamp(dist / Mathf.Max(0.1f, Range) * 0.5f, 0f, 0.4f);
-        bool willHit = new RandomNumberGenerator { Seed = (ulong)Time.GetTicksMsec() + (ulong)from.GetInstanceId() }
-            .Randf() <= hitChance;
+        bool willHit = Rng.Randf() <= hitChance;
 
-        bool instant = Type == WeaponType.Rifle || Type == WeaponType.Mg;
+        bool instant = Type == WeaponType.Rifle || Type == WeaponType.Mg || Type == WeaponType.Sniper;
+        int finalDmg = Damage;
+        if (target is Combatant ct && ct.Armor >= 0.3f)
+            finalDmg = Mathf.Max(1, Mathf.RoundToInt(Damage * AntiArmorMult));
+
         if (instant)
         {
-            // Instant-hit: apply damage after a tiny delay via a short-lived projectile that
-            // immediately resolves, or directly if the target is within range.
             if (willHit)
-            {
-                // Instant-hit weapons resolve damage immediately.
-                target.TakeDamage(Damage);
-            }
-            // Visual tracer (fast, short-lived projectile) for feedback.
-            var tracer = Projectile.Create(muzzle, (targetPos - muzzle).Normalized() * ProjectileSpeed, this, from);
-            tracer.Lifetime = 0.15f;
+                target.TakeDamage(finalDmg);
+            // Physics-free tracer (no RigidBody allocation).
+            var tracer = TracerVisual.Create(muzzle, (targetPos - muzzle).Normalized() * ProjectileSpeed);
             from.GetTree().CurrentScene.AddChild(tracer);
-            GD.Print($"[Weapon] {from.Name} instant-fire {Type} -> {target.Name} (hit={willHit}, dmg={Damage})");
+            CombatFx.MuzzleFlash(from.GetTree().CurrentScene, muzzle);
+            SfxBus.Play(from, SfxBus.Kind.Fire);
+            GD.Print($"[Weapon] {from.Name} instant-fire {Type} -> {target.Name} (hit={willHit}, dmg={finalDmg})");
         }
         else
         {
-            // Projectile weapon: spawn a flying projectile that homes toward the target.
             var proj = Projectile.Create(muzzle, (targetPos - muzzle).Normalized() * ProjectileSpeed, this, from);
             proj.HomingTarget = target;
             proj.WillHit = willHit;
+            proj.Damage = finalDmg;
             from.GetTree().CurrentScene.AddChild(proj);
+            CombatFx.MuzzleFlash(from.GetTree().CurrentScene, muzzle);
+            SfxBus.Play(from, SfxBus.Kind.Fire);
             GD.Print($"[Weapon] {from.Name} fires {Type} projectile -> {target.Name} (hit={willHit})");
         }
     }
@@ -88,6 +94,7 @@ public partial class Weapon : Resource
             RateOfFire = s.CooldownSec > 0f ? 1f / s.CooldownSec : 1f,
             ProjectileSpeed = s.ProjectileSpeed,
             SplashRadius = s.SplashRadius,
+            AntiArmorMult = s.AntiArmorMult,
             _cooldownSec = s.CooldownSec
         };
     }

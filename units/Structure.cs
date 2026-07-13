@@ -18,6 +18,8 @@ public partial class Structure : Unit
     /// <summary>Defensive weapon (MG by default). Structures do not move.</summary>
     public Weapon DefenseWeapon { get; set; } = new();
 
+    protected override float HealthBarHeight => 7f;
+
     private float _defenseReloadLeft;
 
     public Structure()
@@ -35,16 +37,12 @@ public partial class Structure : Unit
         DefenseWeapon = Weapon.ForType(WeaponType.Mg);
         _defenseReloadLeft = DefenseWeapon.CooldownSec;
 
-        // Try to load a 3D model from GLB; fall back to box mesh on failure.
-        var modelPath = IsFriendly
-            ? "res://models/poly_pizza/structure_house.glb"
-            : "res://models/poly_pizza/structure_farmhouse.glb";
-
-        if (ResourceLoader.Exists(modelPath) &&
-            ResourceLoader.Load<PackedScene>(modelPath).Instantiate() is Node3D instance)
+        // Quaternius structure (Toon Shooter kit); fall back to a box mesh.
+        if (ModelLibrary.Structure(Kind, IsFriendly) is { } instance)
         {
             instance.Name = "StructureModel";
-            instance.Scale = new Vector3(1.5f, 1.5f, 1.5f);
+            instance.Scale = new Vector3(
+                ModelLibrary.StructureScale, ModelLibrary.StructureScale, ModelLibrary.StructureScale);
             AddChild(instance);
         }
         else
@@ -73,6 +71,11 @@ public partial class Structure : Unit
 
     public override void _Process(double delta)
     {
+        if (State == UnitState.Dead)
+        {
+            base._Process(delta); // death fade
+            return;
+        }
         // Structures don't move, but they defend themselves with the mounted MG.
         _defenseReloadLeft -= (float)delta;
         if (_defenseReloadLeft > 0f) return;
