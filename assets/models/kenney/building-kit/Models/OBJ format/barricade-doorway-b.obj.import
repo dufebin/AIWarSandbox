@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dft8hcdgw0ayg"
+path="res://.godot/imported/barricade-doorway-b.obj-3ea76b68e1da86be29dcb8b6a80d454b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/barricade-doorway-b.obj-3ea76b68e1da86be29dcb8b6a80d454b.mesh"]
+
+source_file="res://assets/models/kenney/building-kit/Models/OBJ format/barricade-doorway-b.obj"
+dest_files=["res://.godot/imported/barricade-doorway-b.obj-3ea76b68e1da86be29dcb8b6a80d454b.mesh", "res://.godot/imported/barricade-doorway-b.obj-3ea76b68e1da86be29dcb8b6a80d454b.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

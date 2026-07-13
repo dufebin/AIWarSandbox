@@ -35,18 +35,34 @@ public partial class Structure : Unit
         DefenseWeapon = Weapon.ForType(WeaponType.Mg);
         _defenseReloadLeft = DefenseWeapon.CooldownSec;
 
-        var mesh = new MeshInstance3D
+        // Try to load a 3D model from GLB; fall back to box mesh on failure.
+        var modelPath = IsFriendly
+            ? "res://models/poly_pizza/structure_house.glb"
+            : "res://models/poly_pizza/structure_farmhouse.glb";
+
+        if (ResourceLoader.Exists(modelPath) &&
+            ResourceLoader.Load<PackedScene>(modelPath).Instantiate() is Node3D instance)
         {
-            Mesh = new BoxMesh { Size = new Vector3(6f, 6f, 6f) },
-            Name = "StructureMesh"
-        };
-        mesh.MaterialOverride = new StandardMaterial3D
+            instance.Name = "StructureModel";
+            instance.Scale = new Vector3(1.5f, 1.5f, 1.5f);
+            AddChild(instance);
+        }
+        else
         {
-            AlbedoColor = IsFriendly
-                ? new Color(0.2f, 0.4f, 0.85f)
-                : new Color(0.85f, 0.2f, 0.2f)
-        };
-        AddChild(mesh);
+            // Fallback: box mesh
+            var mesh = new MeshInstance3D
+            {
+                Mesh = new BoxMesh { Size = new Vector3(6f, 6f, 6f) },
+                Name = "StructureMesh"
+            };
+            mesh.MaterialOverride = new StandardMaterial3D
+            {
+                AlbedoColor = IsFriendly
+                    ? new Color(0.2f, 0.4f, 0.85f)
+                    : new Color(0.85f, 0.2f, 0.2f)
+            };
+            AddChild(mesh);
+        }
 
         var body = new StaticBody3D { Name = "StructureBody" };
         body.CollisionLayer = 4u;

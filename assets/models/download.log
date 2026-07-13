@@ -1,0 +1,424 @@
+2026-07-09 23:33:50 [START] Kenney asset download
+23:33:50 [DOWNLOAD] space-kit from https://kenney.nl/media/pages/assets/space-kit/20874c75ac-1677698978/kenney_space-kit.zip
+23:35:50 [FAIL] space-kit download error
+23:35:51 [DOWNLOAD] building-kit from https://kenney.nl/media/pages/assets/building-kit/0de7aaa492-1743244741/kenney_building-kit.zip
+23:37:21 [OK] building-kit downloaded (1561KB)
+23:37:21 [EXTRACT] building-kit extracted to /data/source/game/assets/models/kenney/building-kit
+/data/source/game/assets/models/kenney/building-kit/Previews/stairs-open-short.png
+/data/source/game/assets/models/kenney/building-kit/Previews/barricade-window-c.png
+/data/source/game/assets/models/kenney/building-kit/Previews/barricade-doorway-a.png
+/data/source/game/assets/models/kenney/building-kit/Previews/floor-quarter.png
+/data/source/game/assets/models/kenney/building-kit/Previews/border-high-corner.png
+/data/source/game/assets/models/kenney/building-kit/Previews/border-high-corner-diagonal.png
+/data/source/game/assets/models/kenney/building-kit/Previews/barricade-window-a.png
+/data/source/game/assets/models/kenney/building-kit/Previews/door-rotate-square-b.png
+/data/source/game/assets/models/kenney/building-kit/Previews/door-rotate-round-a.png
+/data/source/game/assets/models/kenney/building-kit/Previews/column-wide.png
+23:37:22 [DOWNLOAD] voxel-pack from https://kenney.nl/media/pages/assets/voxel-pack/a3a73d0ff7-1677662501/kenney_voxel-pack.zip
+23:38:05 [OK] voxel-pack downloaded (1237KB)
+23:38:05 [EXTRACT] voxel-pack extracted to /data/source/game/assets/models/kenney/voxel-pack
+/data/source/game/assets/models/kenney/voxel-pack/Spritesheets/spritesheet_particles.png
+/data/source/game/assets/models/kenney/voxel-pack/Spritesheets/spritesheet_tiles.png
+/data/source/game/assets/models/kenney/voxel-pack/Spritesheets/spritesheet_characters.png
+/data/source/game/assets/models/kenney/voxel-pack/Spritesheets/spritesheet_items.png
+/data/source/game/assets/models/kenney/voxel-pack/Sample_2D.png
+/data/source/game/assets/models/kenney/voxel-pack/Preview.png
+/data/source/game/assets/models/kenney/voxel-pack/PNG/Items/stew.png
+/data/source/game/assets/models/kenney/voxel-pack/PNG/Items/flail_bronze.png
+/data/source/game/assets/models/kenney/voxel-pack/PNG/Items/sword_diamond.png
+/data/source/game/assets/models/kenney/voxel-pack/PNG/Items/pick_bronze.png
+23:38:06 [DOWNLOAD] nature-kit from https://kenney.nl/media/pages/assets/nature-kit/37ac38a37b-1677698939/kenney_nature-kit.zip
+23:40:06 [FAIL] nature-kit download error
+23:40:07 [DOWNLOAD] blaster-kit from https://kenney.nl/media/pages/assets/blaster-kit/261d80a716-1753959510/kenney_blaster-kit_2.1.zip
+23:40:39 [OK] blaster-kit downloaded (1684KB)
+23:40:39 [EXTRACT] blaster-kit extracted to /data/source/game/assets/models/kenney/blaster-kit
+/data/source/game/assets/models/kenney/blaster-kit/Previews/blaster-a.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/blaster-l.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/blaster-o.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/silencer-larger.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/scope-large-b.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/scope-small.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/crate-small.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/scope-large-a.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/blaster-c.png
+/data/source/game/assets/models/kenney/blaster-kit/Previews/grenade-a.png
+23:40:40 [DOWNLOAD] tanks from https://kenney.nl/media/pages/assets/tanks/d0bbede612-1677579063/kenney_tanks.zip
+23:40:50 [OK] tanks downloaded (1111KB)
+23:40:50 [EXTRACT] tanks extracted to /data/source/game/assets/models/kenney/tanks
+/data/source/game/assets/models/kenney/tanks/Preview_KenneyNL.png
+/data/source/game/assets/models/kenney/tanks/Preview.png
+/data/source/game/assets/models/kenney/tanks/Spritesheet/tanks_spritesheetRetina.png
+/data/source/game/assets/models/kenney/tanks/Spritesheet/tanks_spritesheetDefault.png
+/data/source/game/assets/models/kenney/tanks/PNG/Retina/tanks_tankNavy1.png
+/data/source/game/assets/models/kenney/tanks/PNG/Retina/tanks_turret2.png
+/data/source/game/assets/models/kenney/tanks/PNG/Retina/tanks_tankTracks4.png
+/data/source/game/assets/models/kenney/tanks/PNG/Retina/tanks_barrelRed.png
+/data/source/game/assets/models/kenney/tanks/PNG/Retina/tanks_tankDesert_body4.png
+/data/source/game/assets/models/kenney/tanks/PNG/Retina/tank_explosion10.png
+23:40:51 [DOWNLOAD] car-kit from https://kenney.nl/media/pages/assets/car-kit/1a312ec241-1775131960/kenney_car-kit.zip
+23:42:51 [FAIL] car-kit download error
+
+23:42:52 [SUMMARY] Downloaded: 4, Failed: 3
+
+=== 3D Model Files ===
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-a.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-b.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-c.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-d.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-e.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-f.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-g.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-h.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-i.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-j.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-k.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-l.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-m.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-n.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-o.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-p.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-q.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/blaster-r.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/bullet-foam.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/bullet-foam-thick.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/bullet-foam-tip.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/bullet-foam-tip-thick.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/clip-large.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/clip-small.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/crate-medium.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/crate-small.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/crate-wide.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/grenade-a.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/grenade-b.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/scope-large-a.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/scope-large-b.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/scope-small.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/silencer-larger.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/silencer-small.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/smoke.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/target-detail.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/target-fragment-large.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/target-fragment-small.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/target-large.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/FBX format/target-small.fbx
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-a.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-b.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-c.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-d.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-e.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-f.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-g.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-h.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-i.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-j.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-k.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-l.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-m.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-n.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-o.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-p.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-q.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/blaster-r.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/bullet-foam.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/bullet-foam-thick.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/bullet-foam-tip.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/bullet-foam-tip-thick.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/clip-large.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/clip-small.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/crate-medium.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/crate-small.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/crate-wide.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/grenade-a.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/grenade-b.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/scope-large-a.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/scope-large-b.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/scope-small.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/silencer-larger.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/silencer-small.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/smoke.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/target-detail.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/target-fragment-large.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/target-fragment-small.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/target-large.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/GLB format/target-small.glb
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-a.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-b.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-c.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-d.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-e.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-f.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-g.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-h.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-i.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-j.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-k.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-l.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-m.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-n.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-o.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-p.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-q.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/blaster-r.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/bullet-foam.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/bullet-foam-thick.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/bullet-foam-tip.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/bullet-foam-tip-thick.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/clip-large.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/clip-small.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/crate-medium.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/crate-small.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/crate-wide.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/grenade-a.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/grenade-b.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/scope-large-a.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/scope-large-b.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/scope-small.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/silencer-larger.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/silencer-small.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/smoke.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/target-detail.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/target-fragment-large.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/target-fragment-small.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/target-large.obj
+/data/source/game/assets/models/kenney/blaster-kit/Models/OBJ format/target-small.obj
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/barricade-doorway-a.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/barricade-doorway-b.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/barricade-doorway-c.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/barricade-window-a.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/barricade-window-b.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/barricade-window-c.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-corner-diagonal.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-corner.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-corner-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-corner-small.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-high-corner-diagonal.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-high-corner.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-high-corner-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-high-corner-small.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/border-high.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/column.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/column-thin.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/column-wide.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/detail-pipe.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-round-a.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-round-b.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-round-c.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-round-d.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-square-a.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-square-b.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-square-c.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/door-rotate-square-d.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/floor-corner-diagonal.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/floor-corner-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/floor.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/floor-half.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/floor-quarter.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/gutter-vertical-bottom.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/gutter-vertical.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/gutter-vertical-short.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/gutter-vertical-top.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/gutter-vertical-wall.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/plating-detailed.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/plating-detailed-wide.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/plating.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/plating-wide.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/roof-flat-center.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/roof-flat-corner.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/roof-flat-corner-inner.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/roof-flat-patch.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/roof-flat-patch-large.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/roof-flat-side.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/roof-flat-square.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-center.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-center-short.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-closed.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-closed-short.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-open.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-open-short.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-sides.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/stairs-sides-short.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-corner-column-bottom.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-corner-column.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-corner-column-small-bottom.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-corner-column-small.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-corner-diagonal.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-corner.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-corner-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-doorway-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-doorway-square.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-doorway-wide-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-doorway-wide-square.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-half.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-low.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-round-detailed.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-square-detailed.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-square.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-wide-round-detailed.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-wide-round.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-wide-square-detailed.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/FBX format/wall-window-wide-square.fbx
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/barricade-doorway-a.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/barricade-doorway-b.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/barricade-doorway-c.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/barricade-window-a.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/barricade-window-b.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/barricade-window-c.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-corner-diagonal.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-corner.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-corner-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-corner-small.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-high-corner-diagonal.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-high-corner.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-high-corner-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-high-corner-small.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/border-high.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/column.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/column-thin.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/column-wide.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/detail-pipe.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-round-a.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-round-b.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-round-c.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-round-d.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-square-a.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-square-b.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-square-c.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/door-rotate-square-d.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/floor-corner-diagonal.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/floor-corner-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/floor.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/floor-half.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/floor-quarter.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/gutter-vertical-bottom.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/gutter-vertical.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/gutter-vertical-short.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/gutter-vertical-top.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/gutter-vertical-wall.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/plating-detailed.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/plating-detailed-wide.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/plating.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/plating-wide.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/roof-flat-center.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/roof-flat-corner.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/roof-flat-corner-inner.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/roof-flat-patch.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/roof-flat-patch-large.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/roof-flat-side.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/roof-flat-square.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-center.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-center-short.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-closed.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-closed-short.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-open.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-open-short.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-sides.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/stairs-sides-short.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-corner-column-bottom.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-corner-column.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-corner-column-small-bottom.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-corner-column-small.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-corner-diagonal.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-corner.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-corner-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-doorway-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-doorway-square.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-doorway-wide-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-doorway-wide-square.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-half.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-low.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-round-detailed.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-square-detailed.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-square.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-wide-round-detailed.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-wide-round.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-wide-square-detailed.glb
+/data/source/game/assets/models/kenney/building-kit/Models/GLB format/wall-window-wide-square.glb
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/barricade-doorway-a.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/barricade-doorway-b.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/barricade-doorway-c.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/barricade-window-a.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/barricade-window-b.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/barricade-window-c.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-corner-diagonal.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-corner.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-corner-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-corner-small.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-high-corner-diagonal.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-high-corner.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-high-corner-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-high-corner-small.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border-high.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/border.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/column.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/column-thin.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/column-wide.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/detail-pipe.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-round-a.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-round-b.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-round-c.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-round-d.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-square-a.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-square-b.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-square-c.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/door-rotate-square-d.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/floor-corner-diagonal.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/floor-corner-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/floor-half.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/floor.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/floor-quarter.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/gutter-vertical-bottom.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/gutter-vertical.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/gutter-vertical-short.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/gutter-vertical-top.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/gutter-vertical-wall.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/plating-detailed.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/plating-detailed-wide.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/plating.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/plating-wide.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/roof-flat-center.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/roof-flat-corner-inner.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/roof-flat-corner.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/roof-flat-patch-large.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/roof-flat-patch.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/roof-flat-side.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/roof-flat-square.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-center.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-center-short.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-closed.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-closed-short.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-open.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-open-short.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-sides.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/stairs-sides-short.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-corner-column-bottom.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-corner-column.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-corner-column-small-bottom.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-corner-column-small.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-corner-diagonal.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-corner.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-corner-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-doorway-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-doorway-square.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-doorway-wide-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-doorway-wide-square.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-half.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-low.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-round-detailed.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-square-detailed.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-square.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-wide-round-detailed.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-wide-round.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-wide-square-detailed.obj
+/data/source/game/assets/models/kenney/building-kit/Models/OBJ format/wall-window-wide-square.obj
+
+=== Texture Files ===
+510
+2026-07-09 23:42:52 [DONE]
